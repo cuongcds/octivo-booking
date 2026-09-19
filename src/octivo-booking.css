@@ -1,0 +1,290 @@
+/*
+ * Self-contained styles for the embeddable Octivo Booking widget.
+ * Namespaced with `octivo-booking-` (separate token set from
+ * assets/plugins/octivo-chat/octivo-chat.css's `--oc-*` vars) so the two
+ * widgets stay fully independent even though they look similar.
+ */
+.octivo-booking-root {
+  --ob-accent: #206bc4;
+  --ob-accent-contrast: #ffffff;
+  --ob-surface: #ffffff;
+  --ob-surface-2: #f4f6f8;
+  --ob-border: #e2e6ea;
+  --ob-text: #182433;
+  --ob-muted: #6b7785;
+  --ob-radius-sm: 10px;
+  --ob-shadow-button: 0 6px 16px rgba(32, 107, 196, .28);
+  all: initial;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ob-text);
+}
+.octivo-booking-root *,
+.octivo-booking-root *::before,
+.octivo-booking-root *::after {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.octivo-booking-root .octivo-booking-hidden { display: none !important; }
+.octivo-booking-root button { font: inherit; }
+
+.octivo-booking-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 14px 20px; border: none; border-radius: var(--ob-radius-sm);
+  font-size: .95rem; font-weight: 600; cursor: pointer; transition: .2s;
+  background: var(--ob-accent);
+  color: var(--ob-accent-contrast);
+  box-shadow: var(--ob-shadow-button);
+}
+.octivo-booking-btn:hover { filter: brightness(1.06); }
+.octivo-booking-btn:disabled { opacity: .45; cursor: not-allowed; filter: none; box-shadow: none; }
+
+.octivo-booking-btn-outline {
+  padding: 8px 14px; border: 1px solid var(--ob-border); border-radius: var(--ob-radius-sm);
+  background: transparent; color: var(--ob-text); font-size: .85rem; font-weight: 600;
+  cursor: pointer; flex-shrink: 0;
+}
+.octivo-booking-btn-outline:hover { border-color: var(--ob-accent); color: var(--ob-accent); }
+
+.octivo-booking-icon-btn {
+  width: 40px; height: 40px; border-radius: 12px;
+  border: 1px solid var(--ob-border); background: var(--ob-surface-2);
+  color: var(--ob-text); cursor: pointer; display: grid; place-items: center;
+  flex-shrink: 0; transition: .2s;
+}
+.octivo-booking-icon-btn:hover { border-color: var(--ob-accent); color: var(--ob-accent); }
+.octivo-booking-icon-btn svg { width: 20px; height: 20px; }
+
+/* Bubble (FAB) */
+.octivo-booking-fab {
+  position: fixed;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0));
+  z-index: 2147483000;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: var(--ob-accent);
+  color: var(--ob-accent-contrast);
+  box-shadow: var(--ob-shadow-button);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform .2s, box-shadow .2s;
+}
+.octivo-booking-fab--right { right: 16px; }
+.octivo-booking-fab--left { left: 16px; }
+.octivo-booking-fab:hover { transform: scale(1.05); }
+.octivo-booking-fab svg { width: 26px; height: 26px; }
+
+/* Panel: mobile-first full screen, desktop = centered modal */
+.octivo-booking-panel { position: fixed; inset: 0; z-index: 2147483001; pointer-events: none; }
+.octivo-booking-panel:not(.octivo-booking-hidden) { pointer-events: auto; }
+.octivo-booking-panel__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(20, 20, 25, 0.45);
+  opacity: 0;
+  transition: opacity .25s;
+}
+.octivo-booking-panel:not(.octivo-booking-hidden) .octivo-booking-panel__backdrop { opacity: 1; }
+
+.octivo-booking-panel__sheet {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: 100dvh;
+  background: var(--ob-surface);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform .28s ease, opacity .28s ease;
+}
+.octivo-booking-panel:not(.octivo-booking-hidden) .octivo-booking-panel__sheet { transform: translateY(0); }
+
+.octivo-booking-panel__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--ob-border);
+}
+.octivo-booking-panel__title-wrap { flex: 1; min-width: 0; }
+.octivo-booking-panel__header h2 { font-size: 1.05rem; font-weight: 700; margin: 0; }
+.octivo-booking-panel__sub { font-size: .78rem; color: var(--ob-muted); margin: 2px 0 0; }
+.octivo-booking-panel__header-actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+/* Full-screen toggle is a desktop-only affordance — mobile is already full-viewport by default. */
+.octivo-booking-fullscreen-btn { display: none; }
+
+.octivo-booking-gate {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+.octivo-booking-gate p { margin: 0 0 4px; font-size: .86rem; color: var(--ob-muted); }
+.octivo-booking-gate label { display: block; font-size: .8rem; font-weight: 600; margin-bottom: 4px; }
+.octivo-booking-gate input {
+  width: 100%; padding: 10px 12px; border: 1px solid var(--ob-border);
+  border-radius: 10px; font-size: .9rem; outline: none;
+}
+.octivo-booking-gate input:focus { border-color: var(--ob-accent); }
+.octivo-booking-gate__error { font-size: .78rem; color: #d63939; min-height: 1em; }
+
+.octivo-booking-body { flex: 1; overflow-y: auto; padding: 16px; min-height: 0; }
+.octivo-booking-empty { text-align: center; color: var(--ob-muted); font-size: .88rem; padding: 24px 8px; margin: 0; }
+
+.octivo-booking-footer {
+  border-top: 1px solid var(--ob-border);
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0));
+  background: var(--ob-surface);
+}
+
+/* Option cards (branch/service/staff selection) */
+.octivo-booking-list { display: flex; flex-direction: column; gap: 8px; }
+.octivo-booking-option-card {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  padding: 12px; border: 1px solid var(--ob-border); border-radius: 12px;
+  background: var(--ob-surface); cursor: pointer; transition: border-color .15s;
+}
+.octivo-booking-option-card:hover { border-color: var(--ob-accent); }
+.octivo-booking-option-card--any { justify-content: center; color: var(--ob-muted); font-style: italic; }
+.octivo-booking-option-card__img {
+  width: 56px; height: 56px; object-fit: cover; border-radius: 10px; flex-shrink: 0;
+}
+.octivo-booking-option-card__img--round { border-radius: 50%; }
+.octivo-booking-option-card__body { flex: 1; min-width: 0; }
+.octivo-booking-option-card__title { font-weight: 600; font-size: .92rem; }
+.octivo-booking-option-card__meta { font-size: .8rem; color: var(--ob-muted); margin-top: 2px; }
+
+/* Date/time picker */
+.octivo-booking-dates {
+  display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px;
+  border-bottom: 1px solid var(--ob-border);
+}
+.octivo-booking-date {
+  flex-shrink: 0; padding: 8px 14px; border: 1px solid var(--ob-border); border-radius: 10px;
+  background: var(--ob-surface); font-size: .82rem; font-weight: 600; cursor: pointer;
+  color: var(--ob-text);
+}
+.octivo-booking-date--active { background: var(--ob-accent); color: var(--ob-accent-contrast); border-color: var(--ob-accent); }
+.octivo-booking-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.octivo-booking-slot {
+  padding: 10px 6px; border: 1px solid var(--ob-border); border-radius: 10px;
+  background: var(--ob-surface); font-size: .85rem; font-weight: 600; cursor: pointer;
+  color: var(--ob-text); text-align: center;
+}
+.octivo-booking-slot--active { background: var(--ob-accent); color: var(--ob-accent-contrast); border-color: var(--ob-accent); }
+
+/* Confirm summary */
+.octivo-booking-summary { display: flex; flex-direction: column; gap: 10px; }
+.octivo-booking-summary__row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--ob-border); font-size: .88rem;
+}
+.octivo-booking-summary__row span { color: var(--ob-muted); }
+.octivo-booking-summary__row:last-child { border-bottom: none; }
+
+/* Reservation list */
+.octivo-booking-reservation-card {
+  display: flex; align-items: center; gap: 10px; padding: 12px;
+  border: 1px solid var(--ob-border); border-radius: 12px; background: var(--ob-surface);
+}
+.octivo-booking-reservation-card__body { flex: 1; min-width: 0; }
+.octivo-booking-status {
+  display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 999px;
+  font-size: .72rem; font-weight: 600; background: var(--ob-surface-2); color: var(--ob-muted);
+}
+.octivo-booking-status--booked { background: rgba(32, 107, 196, .12); color: var(--ob-accent); }
+.octivo-booking-status--completed { background: rgba(45, 194, 117, .15); color: #2dc275; }
+.octivo-booking-status--cancelled { background: rgba(214, 57, 57, .12); color: #d63939; }
+
+.octivo-booking-toast {
+  position: fixed;
+  bottom: calc(84px + env(safe-area-inset-bottom, 0));
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(20, 20, 25, 0.92);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: .82rem;
+  z-index: 2147483002;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.octivo-booking-toast--show { opacity: 1; }
+
+@media (min-width: 576px) {
+  .octivo-booking-fullscreen-btn { display: grid; }
+
+  /* Desktop: centered modal instead of a corner-docked panel. */
+  .octivo-booking-panel__sheet {
+    inset: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -48%);
+    width: min(480px, calc(100vw - 48px));
+    height: min(640px, calc(100dvh - 48px));
+    max-height: min(640px, calc(100dvh - 48px));
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+    opacity: 0;
+    transition: transform .28s ease, opacity .28s ease, width .22s ease, height .22s ease;
+  }
+  .octivo-booking-panel:not(.octivo-booking-hidden) .octivo-booking-panel__sheet {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  .octivo-booking-panel--fullscreen .octivo-booking-panel__sheet {
+    top: 24px; left: 24px; right: 24px; bottom: 24px;
+    width: auto; height: auto; max-height: none;
+    transform: none;
+  }
+  .octivo-booking-panel--fullscreen:not(.octivo-booking-hidden) .octivo-booking-panel__sheet {
+    transform: none;
+  }
+}
+
+/*
+ * Preview mode (admin "Booking" tab): the panel renders inline, docked
+ * inside a container the admin page provides, instead of position:fixed
+ * over the whole viewport — so it sits inside the settings card rather
+ * than floating over the CRM UI. No backdrop; always "open".
+ */
+.octivo-booking-preview {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: 520px;
+  border: 1px solid var(--ob-border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+.octivo-booking-panel.octivo-booking-preview .octivo-booking-panel__sheet {
+  position: static;
+  inset: auto;
+  top: auto;
+  left: auto;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  border-radius: 0;
+  box-shadow: none;
+  opacity: 1;
+  transform: none;
+}
+.octivo-booking-preview .octivo-booking-fab {
+  position: absolute;
+  bottom: 16px;
+}
+
+/* "bubble" sub-view: only the floating button is meaningful, hide the sheet. */
+.octivo-booking-preview.octivo-booking-preview--bubble-only {
+  background: var(--ob-surface-2);
+}
+.octivo-booking-preview--bubble-only .octivo-booking-panel__sheet { display: none; }
