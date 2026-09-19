@@ -1,0 +1,16 @@
+{
+  "name": "octivo-booking",
+  "version": "1.0.0",
+  "description": "Embeddable booking widget for Octivo CRM website channels",
+  "main": "dist/octivo-booking.min.js",
+  "style": "dist/octivo-booking.min.css",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cuongcds/octivo-booking.git"
+  },
+  "license": "MIT"
+}
