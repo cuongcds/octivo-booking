@@ -8,15 +8,15 @@ Flow: choose branch (skipped if the org has only one) -> choose service -> choos
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/octivo-booking@1/dist/octivo-booking.min.css">
-<script src="https://cdn.jsdelivr.net/npm/octivo-booking@1/dist/octivo-booking.min.js" data-channel="@abc123" async></script>
+<script src="https://cdn.jsdelivr.net/npm/octivo-booking@1/dist/octivo-booking.min.js" data-channel="your-channel-slug" async></script>
 ```
 
-Replace `@abc123` with your channel source id.
+Replace `your-channel-slug` with your channel source id.
 
 ## Usage
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/octivo-booking@1/dist/octivo-booking.min.js" data-channel="@abc123" async></script>
+<script src="https://cdn.jsdelivr.net/npm/octivo-booking@1/dist/octivo-booking.min.js" data-channel="your-channel-slug" async></script>
 <script>
   // optional, any time after the script tag:
   window.OctivoBooking.init({
