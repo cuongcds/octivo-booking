@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Octivo Booking Widget - Test Page</title>
+<link rel="icon" type="image/png" href="https://octivo.shplinks.com/storage/favicon/octivo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --card-bg: #ffffff;
+    --text: #1f2430;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --accent: #206bc4;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  header {
+    padding: 24px 32px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  header p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  main {
+    flex: 1;
+    max-width: 880px;
+    margin: 32px auto;
+    padding: 0 16px;
+    width: 100%;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .card h2 {
+    margin-top: 0;
+    font-size: 16px;
+  }
+
+  .card.is-active {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(32, 107, 196, 0.15);
+  }
+
+  .usecase-badge {
+    display: none;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .card.is-active .usecase-badge {
+    display: inline-block;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .card-header h2 {
+    margin: 0;
+  }
+
+  .card-header-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn {
+    padding: 6px 14px;
+    font-size: 13px;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+
+  .card p {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .embed-slot {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: left;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .embed-slot pre {
+    margin: 0;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+
+  .embed-slot pre code {
+    display: block;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .usecase-log {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    min-height: 1.2em;
+  }
+
+  .usecase-log strong {
+    color: var(--text);
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 24px;
+  }
+
+  footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    color: var(--text);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Octivo Booking Widget — Test Page</h1>
+  <p>A simple test page to preview the booking widget embed code and its usage patterns</p>
+</header>
+
+<main>
+  <div class="card">
+    <h2>Sample page content</h2>
+    <p>This page simulates a generic website used to test the booking widget once it is embedded. Set <code>?channel=@your-source-id</code> in the URL to point every usecase below at a real channel, and <code>?usecase=n</code> to load a specific one directly (defaults to usecase 1 if missing or invalid).</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Base embed code</h2>
+      <button class="btn" id="copy-btn" type="button">Copy script</button>
+    </div>
+    <p>Drop this single line before <code>&lt;/body&gt;</code> to auto-init the widget with a default floating bubble — no further JS required. On desktop the popup opens as a centered modal (with a full-screen toggle); on mobile it's always full-screen.</p>
+    <div class="embed-slot">
+      <pre><code id="embed-code" class="language-xml"></code></pre>
+    </div>
+  </div>
+
+  <!-- Usecase 1: basic manual init() -->
+  <div class="card" data-usecase-card="1">
+    <div class="card-header">
+      <h2><span class="usecase-badge">Active</span>Usecase 1 — Manual init()</h2>
+      <div class="card-header-actions">
+        <button class="btn btn-outline" type="button" data-copy="1">Copy</button>
+        <button class="btn" type="button" data-usecase="1">Run demo</button>
+      </div>
+    </div>
+    <p>Call <code>OctivoBooking.init()</code> yourself (instead of relying on <code>data-channel</code> auto-init) whenever your app is ready — e.g. after your own bootstrap logic runs.</p>
+    <div class="embed-slot"><pre><code id="usecase-code-1" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  OctivoBooking.init({ channel: '@your-source-id', autoOpen: true });
+&lt;/script&gt;</code></pre></div>
+    <div class="usecase-log" data-log="1"></div>
+  </div>
+
+  <!-- Usecase 2: mechanism 2 — pass name/phone up front -->
+  <div class="card" data-usecase-card="2">
+    <div class="card-header">
+      <h2><span class="usecase-badge">Active</span>Usecase 2 — Pre-fill visitor info (mechanism 2)</h2>
+      <div class="card-header-actions">
+        <button class="btn btn-outline" type="button" data-copy="2">Copy</button>
+        <button class="btn" type="button" data-usecase="2">Run demo</button>
+      </div>
+    </div>
+    <p>If your site already knows the visitor (logged-in user, CRM lead form, ...), pass <code>name</code>/<code>phone</code> directly — the guest-info gate is skipped when both are valid, going straight to branch/service selection.</p>
+    <div class="embed-slot"><pre><code id="usecase-code-2" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  OctivoBooking.init({
+    channel: '@your-source-id',
+    name: 'Nguyễn Văn A',
+    phone: '0901234567',
+    autoOpen: true,
+  });
+&lt;/script&gt;</code></pre></div>
+    <div class="usecase-log" data-log="2"></div>
+  </div>
+
+  <!-- Usecase 3: hide the floating bubble, trigger from your own button -->
+  <div class="card" data-usecase-card="3">
+    <div class="card-header">
+      <h2><span class="usecase-badge">Active</span>Usecase 3 — Hide bubble, trigger from your own button</h2>
+      <div class="card-header-actions">
+        <button class="btn btn-outline" type="button" data-copy="3">Copy</button>
+        <button class="btn" type="button" data-usecase="3">Run demo</button>
+      </div>
+    </div>
+    <p>Set <code>showBubble: false</code> so no floating button ever renders — call <code>OctivoBooking.open()</code> from any element on your page instead (a nav link, a "Book now" button, ...). The demo below runs both steps at once: it inits with no bubble, then opens the popup from a separate trigger.</p>
+    <div class="embed-slot"><pre><code id="usecase-code-3" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  OctivoBooking.init({ channel: '@your-source-id', showBubble: false });
+
+  document.querySelector('#my-booking-button').addEventListener('click', function () {
+    OctivoBooking.open();
+  });
+&lt;/script&gt;
+
+&lt;button id="my-booking-button" type="button"&gt;Book now&lt;/button&gt;
+
+&lt;!-- Or, without any manual init() call — auto-init straight from the tag: --&gt;
+&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"
+  data-channel="@your-source-id" data-show-bubble="false" async&gt;&lt;/script&gt;</code></pre></div>
+    <div class="usecase-log" data-log="3"></div>
+  </div>
+
+  <!-- Usecase 4: onClose callback -->
+  <div class="card" data-usecase-card="4">
+    <div class="card-header">
+      <h2><span class="usecase-badge">Active</span>Usecase 4 — React when the visitor closes the popup</h2>
+      <div class="card-header-actions">
+        <button class="btn btn-outline" type="button" data-copy="4">Copy</button>
+        <button class="btn" type="button" data-usecase="4">Run demo</button>
+      </div>
+    </div>
+    <p>Pass an <code>onClose</code> callback to run your own logic (analytics event, show a survey, ...) the moment the popup closes.</p>
+    <div class="embed-slot"><pre><code id="usecase-code-4" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  OctivoBooking.init({
+    channel: '@your-source-id',
+    autoOpen: true,
+    onClose: function () {
+      console.log('Visitor closed the booking popup');
+    },
+  });
+&lt;/script&gt;</code></pre></div>
+    <div class="usecase-log" data-log="4"></div>
+  </div>
+
+  <!-- Usecase 5: window event instead of callback -->
+  <div class="card" data-usecase-card="5">
+    <div class="card-header">
+      <h2><span class="usecase-badge">Active</span>Usecase 5 — Listen for the close event globally</h2>
+      <div class="card-header-actions">
+        <button class="btn btn-outline" type="button" data-copy="5">Copy</button>
+        <button class="btn" type="button" data-usecase="5">Run demo</button>
+      </div>
+    </div>
+    <p>Prefer a DOM event over a callback (e.g. to wire up multiple independent listeners)? Listen for <code>octivobooking:close</code> on <code>window</code> — it fires alongside <code>onClose</code>, whichever (or both) you use.</p>
+    <div class="embed-slot"><pre><code id="usecase-code-5" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.addEventListener('octivobooking:close', function (e) {
+    console.log('Booking popup closed for channel', e.detail.channel);
+  });
+  OctivoBooking.init({ channel: '@your-source-id', autoOpen: true });
+&lt;/script&gt;</code></pre></div>
+    <div class="usecase-log" data-log="5"></div>
+  </div>
+
+  <!-- Usecase 6: returning visitor / session reuse -->
+  <div class="card" data-usecase-card="6">
+    <div class="card-header">
+      <h2><span class="usecase-badge">Active</span>Usecase 6 — Returning visitor (session reuse)</h2>
+      <div class="card-header-actions">
+        <button class="btn btn-outline" type="button" data-copy="6">Copy</button>
+        <button class="btn" type="button" data-usecase="6">Run demo</button>
+      </div>
+    </div>
+    <p>Once a guest session exists in this browser (localStorage), it's always reused — calling <code>init()</code> again with different <code>name</code>/<code>phone</code> is ignored until the session is cleared, so the same visitor's reservations never get split across two identities. The demo below runs both steps at once: it starts a session as Jane, then immediately re-inits as John to show the session is reused, not replaced — reopening the widget goes straight to Jane's reservation list.</p>
+    <div class="embed-slot"><pre><code id="usecase-code-6" class="language-xml">&lt;!-- First visit — creates the session --&gt;
+&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  OctivoBooking.init({ channel: '@your-source-id', name: 'Jane', phone: '0901111111' });
+&lt;/script&gt;
+
+&lt;!-- Later, on the same browser — "John" is ignored, Jane's session resumes --&gt;
+&lt;script&gt;
+  OctivoBooking.init({ channel: '@your-source-id', name: 'John', phone: '0902222222' });
+&lt;/script&gt;</code></pre></div>
+    <div class="usecase-log" data-log="6"></div>
+  </div>
+
+  <!-- Usecase 7: full-screen toggle (desktop) -->
+  <div class="card" data-usecase-card="7">
+    <div class="card-header">
+      <h2><span class="usecase-badge">Active</span>Usecase 7 — Desktop modal with full-screen toggle</h2>
+      <div class="card-header-actions">
+        <button class="btn btn-outline" type="button" data-copy="7">Copy</button>
+        <button class="btn" type="button" data-usecase="7">Run demo</button>
+      </div>
+    </div>
+    <p>No special options needed — on desktop (viewport ≥ 576px) the popup always renders as a modal centered on screen with a full-screen toggle icon in the header; on mobile it's always full-screen with the toggle hidden. Resize your browser window (or open on a phone) to see the difference.</p>
+    <div class="embed-slot"><pre><code id="usecase-code-7" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  OctivoBooking.init({ channel: '@your-source-id', autoOpen: true });
+&lt;/script&gt;</code></pre></div>
+    <div class="usecase-log" data-log="7"></div>
+  </div>
+</main>
+
+<footer>
+  <a href="https://octivo.shplinks.com" target="_blank" rel="noopener">Octivo Booking</a> Example
+</footer>
+
+<script>
+  var USECASE_KEYS = ['1', '2', '3', '4', '5', '6', '7'];
+  var DEFAULT_USECASE = '1';
+  var DEFAULT_CHANNEL = '@test-embed';
+
+  var params = new URLSearchParams(window.location.search);
+  var channel = params.get('channel') || DEFAULT_CHANNEL;
+  var requestedUsecase = params.get('usecase');
+  var activeUsecase = USECASE_KEYS.indexOf(requestedUsecase) !== -1 ? requestedUsecase : DEFAULT_USECASE;
+
+  var scriptSrc = 'https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js';
+
+  var codeText = '<script src="' + scriptSrc + '" data-channel="' + channel + '" async><\/script>';
+  var embedCodeEl = document.getElementById('embed-code');
+  embedCodeEl.textContent = codeText;
+
+  document.querySelectorAll('.embed-slot code[id^="usecase-code-"]').forEach(function (el) {
+    el.textContent = el.textContent.replace(/@your-source-id/g, channel);
+  });
+
+  if (window.hljs) {
+    document.querySelectorAll('pre code').forEach(function (el) {
+      hljs.highlightElement(el);
+    });
+  }
+
+  // Highlight whichever usecase card is currently active (via ?usecase=n, or the default).
+  document.querySelectorAll('[data-usecase-card]').forEach(function (card) {
+    card.classList.toggle('is-active', card.dataset.usecaseCard === activeUsecase);
+  });
+  var activeCard = document.querySelector('[data-usecase-card="' + activeUsecase + '"]');
+  if (activeCard) {
+    activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var codeEl = document.getElementById('usecase-code-' + btn.dataset.copy);
+      if (!codeEl) return;
+      navigator.clipboard.writeText(codeEl.textContent).then(function () {
+        var originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(function () {
+          btn.textContent = originalText;
+        }, 1500);
+      });
+    });
+  });
+
+  document.getElementById('copy-btn').addEventListener('click', function () {
+    navigator.clipboard.writeText(codeText).then(function () {
+      var btn = document.getElementById('copy-btn');
+      var originalText = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(function () {
+        btn.textContent = originalText;
+      }, 1500);
+    });
+  });
+
+  function log(key, message) {
+    var el = document.querySelector('[data-log="' + key + '"]');
+    if (el) el.innerHTML = '<strong>Log:</strong> ' + message;
+  }
+
+  // "Run demo" always navigates to this same page with ?usecase=n (and
+  // &channel=... when one is set), rather than running in place — mirrors
+  // sharing a direct link to a specific usecase, which auto-runs on load.
+  document.querySelectorAll('[data-usecase]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var target = new URLSearchParams();
+      target.set('usecase', btn.dataset.usecase);
+      if (params.get('channel')) {
+        target.set('channel', params.get('channel'));
+      }
+      window.location.search = target.toString();
+    });
+  });
+
+  var widgetLoadPromise = null;
+  function ensureWidgetLoaded() {
+    if (widgetLoadPromise) return widgetLoadPromise;
+    widgetLoadPromise = new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = scriptSrc;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.body.appendChild(s);
+    });
+    return widgetLoadPromise;
+  }
+
+  // The usecase resolved from ?usecase=n (or the default) auto-runs as soon
+  // as the widget script loads — no extra click needed after navigating here.
+  ensureWidgetLoaded().then(function () {
+    runUsecase(activeUsecase);
+  });
+
+  function runUsecase(usecase) {
+    switch (usecase) {
+      case '1':
+        OctivoBooking.init({ channel: channel, autoOpen: true });
+        log('1', 'init() called — bubble shown, panel opened.');
+        break;
+
+      case '2':
+        OctivoBooking.init({
+          channel: channel,
+          name: 'Nguyễn Văn A',
+          phone: '0901234567',
+          autoOpen: true,
+        });
+        log('2', 'init() called with name/phone — guest-info gate skipped if this is a new session.');
+        break;
+
+      case '3':
+        OctivoBooking.init({ channel: channel, showBubble: false });
+        log('3', 'init() called with showBubble:false — no floating bubble should appear. Opening popup from a separate trigger…');
+        setTimeout(function () {
+          OctivoBooking.open();
+          log('3', 'open() called manually — popup should show even without a bubble.');
+        }, 400);
+        break;
+
+      case '4':
+        OctivoBooking.init({
+          channel: channel,
+          autoOpen: true,
+          onClose: function () {
+            log('4', 'onClose callback fired at ' + new Date().toLocaleTimeString() + '.');
+          },
+        });
+        log('4', 'init() called — close the popup to trigger the callback.');
+        break;
+
+      case '5':
+        window.addEventListener('octivobooking:close', function (e) {
+          log('5', 'octivobooking:close event received for channel ' + e.detail.channel + '.');
+        });
+        OctivoBooking.init({ channel: channel, autoOpen: true });
+        log('5', 'init() called and listener attached — close the popup to trigger the event.');
+        break;
+
+      case '6':
+        OctivoBooking.init({ channel: channel, name: 'Jane', phone: '0901111111', autoOpen: true });
+        log('6', 'Session started as Jane. Re-initing as John…');
+        setTimeout(function () {
+          OctivoBooking.init({ channel: channel, name: 'John', phone: '0902222222', autoOpen: true });
+          log('6', 'init() called again as John — the existing session (Jane) is reused as-is, reservation list shown.');
+        }, 800);
+        break;
+
+      case '7':
+        OctivoBooking.init({ channel: channel, autoOpen: true });
+        log('7', 'init() called — resize the window or open on a phone to compare the centered-modal (desktop) vs full-screen (mobile) layouts.');
+        break;
+    }
+  }
+</script>
+
+</body>
+</html>
