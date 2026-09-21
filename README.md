@@ -7,16 +7,18 @@ Flow: choose branch (skipped if the org has only one) -> choose service -> choos
 ## Install via jsDelivr
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.0/dist/octivo-booking.min.css">
-<script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.0/dist/octivo-booking.min.js" data-channel="your-channel-slug" async></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.css">
+<script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js" data-channel="your-channel-slug" async></script>
 ```
 
 Replace `your-channel-slug` with your channel source id.
 
+By default, the widget talks to `https://octivo.shplinks.com`. To point it at a different Octivo instance, add `data-host="https://your-instance.example.com"` to the `<script>` tag, or pass `host` to `init()`.
+
 ## Usage
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.0/dist/octivo-booking.min.js" data-channel="your-channel-slug" async></script>
+<script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js" data-channel="your-channel-slug" async></script>
 <script>
   // optional, any time after the script tag:
   window.OctivoBooking.init({

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Octivo Booking Widget - Test Page</title>
 <link rel="icon" type="image/png" href="https://octivo.shplinks.com/storage/favicon/octivo.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
@@ -199,7 +200,7 @@
 <main>
   <div class="card">
     <h2>Sample page content</h2>
-    <p>This page simulates a generic website used to test the booking widget once it is embedded. Set <code>?channel=@your-source-id</code> in the URL to point every usecase below at a real channel, and <code>?usecase=n</code> to load a specific one directly (defaults to usecase 1 if missing or invalid).</p>
+    <p>This page simulates a generic website used to test the booking widget once it is embedded. Set <code>?channel=@your-source-id</code> in the URL to point every usecase below at a real channel, <code>?host=https://your-instance.example.com</code> to target a non-default Octivo instance, and <code>?usecase=n</code> to load a specific one directly (defaults to usecase 1 if missing or invalid).</p>
   </div>
 
   <div class="card">
@@ -223,7 +224,7 @@
       </div>
     </div>
     <p>Call <code>OctivoBooking.init()</code> yourself (instead of relying on <code>data-channel</code> auto-init) whenever your app is ready — e.g. after your own bootstrap logic runs.</p>
-    <div class="embed-slot"><pre><code id="usecase-code-1" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+    <div class="embed-slot"><pre><code id="usecase-code-1" class="language-xml">&lt;script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   OctivoBooking.init({ channel: '@your-source-id', autoOpen: true });
 &lt;/script&gt;</code></pre></div>
@@ -240,7 +241,7 @@
       </div>
     </div>
     <p>If your site already knows the visitor (logged-in user, CRM lead form, ...), pass <code>name</code>/<code>phone</code> directly — the guest-info gate is skipped when both are valid, going straight to branch/service selection.</p>
-    <div class="embed-slot"><pre><code id="usecase-code-2" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+    <div class="embed-slot"><pre><code id="usecase-code-2" class="language-xml">&lt;script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   OctivoBooking.init({
     channel: '@your-source-id',
@@ -262,7 +263,7 @@
       </div>
     </div>
     <p>Set <code>showBubble: false</code> so no floating button ever renders — call <code>OctivoBooking.open()</code> from any element on your page instead (a nav link, a "Book now" button, ...). The demo below runs both steps at once: it inits with no bubble, then opens the popup from a separate trigger.</p>
-    <div class="embed-slot"><pre><code id="usecase-code-3" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+    <div class="embed-slot"><pre><code id="usecase-code-3" class="language-xml">&lt;script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   OctivoBooking.init({ channel: '@your-source-id', showBubble: false });
 
@@ -274,7 +275,7 @@
 &lt;button id="my-booking-button" type="button"&gt;Book now&lt;/button&gt;
 
 &lt;!-- Or, without any manual init() call — auto-init straight from the tag: --&gt;
-&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"
+&lt;script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js"
   data-channel="@your-source-id" data-show-bubble="false" async&gt;&lt;/script&gt;</code></pre></div>
     <div class="usecase-log" data-log="3"></div>
   </div>
@@ -289,7 +290,7 @@
       </div>
     </div>
     <p>Pass an <code>onClose</code> callback to run your own logic (analytics event, show a survey, ...) the moment the popup closes.</p>
-    <div class="embed-slot"><pre><code id="usecase-code-4" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+    <div class="embed-slot"><pre><code id="usecase-code-4" class="language-xml">&lt;script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   OctivoBooking.init({
     channel: '@your-source-id',
@@ -312,7 +313,7 @@
       </div>
     </div>
     <p>Prefer a DOM event over a callback (e.g. to wire up multiple independent listeners)? Listen for <code>octivobooking:close</code> on <code>window</code> — it fires alongside <code>onClose</code>, whichever (or both) you use.</p>
-    <div class="embed-slot"><pre><code id="usecase-code-5" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+    <div class="embed-slot"><pre><code id="usecase-code-5" class="language-xml">&lt;script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   window.addEventListener('octivobooking:close', function (e) {
     console.log('Booking popup closed for channel', e.detail.channel);
@@ -333,7 +334,7 @@
     </div>
     <p>Once a guest session exists in this browser (localStorage), it's always reused — calling <code>init()</code> again with different <code>name</code>/<code>phone</code> is ignored until the session is cleared, so the same visitor's reservations never get split across two identities. The demo below runs both steps at once: it starts a session as Jane, then immediately re-inits as John to show the session is reused, not replaced — reopening the widget goes straight to Jane's reservation list.</p>
     <div class="embed-slot"><pre><code id="usecase-code-6" class="language-xml">&lt;!-- First visit — creates the session --&gt;
-&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   OctivoBooking.init({ channel: '@your-source-id', name: 'Jane', phone: '0901111111' });
 &lt;/script&gt;
@@ -355,7 +356,7 @@
       </div>
     </div>
     <p>No special options needed — on desktop (viewport ≥ 576px) the popup always renders as a modal centered on screen with a full-screen toggle icon in the header; on mobile it's always full-screen with the toggle hidden. Resize your browser window (or open on a phone) to see the difference.</p>
-    <div class="embed-slot"><pre><code id="usecase-code-7" class="language-xml">&lt;script src="https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js"&gt;&lt;/script&gt;
+    <div class="embed-slot"><pre><code id="usecase-code-7" class="language-xml">&lt;script src="https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   OctivoBooking.init({ channel: '@your-source-id', autoOpen: true });
 &lt;/script&gt;</code></pre></div>
@@ -374,12 +375,14 @@
 
   var params = new URLSearchParams(window.location.search);
   var channel = params.get('channel') || DEFAULT_CHANNEL;
+  var host = params.get('host') || '';
   var requestedUsecase = params.get('usecase');
   var activeUsecase = USECASE_KEYS.indexOf(requestedUsecase) !== -1 ? requestedUsecase : DEFAULT_USECASE;
 
-  var scriptSrc = 'https://octivo.shplinks.io/assets/plugins/octivo-booking/octivo-booking.js';
+  var scriptSrc = 'https://cdn.jsdelivr.net/npm/octivo-booking@0.1.1/dist/octivo-booking.min.js';
 
-  var codeText = '<script src="' + scriptSrc + '" data-channel="' + channel + '" async><\/script>';
+  var codeText = '<script src="' + scriptSrc + '" data-channel="' + channel + '"' +
+    (host ? ' data-host="' + host + '"' : '') + ' async><\/script>';
   var embedCodeEl = document.getElementById('embed-code');
   embedCodeEl.textContent = codeText;
 
@@ -442,6 +445,9 @@
       if (params.get('channel')) {
         target.set('channel', params.get('channel'));
       }
+      if (params.get('host')) {
+        target.set('host', params.get('host'));
+      }
       window.location.search = target.toString();
     });
   });
@@ -465,25 +471,31 @@
     runUsecase(activeUsecase);
   });
 
+  /** Merges the ?host= override (if any) into an init() options object. */
+  function withHost(options) {
+    if (host) options.host = host;
+    return options;
+  }
+
   function runUsecase(usecase) {
     switch (usecase) {
       case '1':
-        OctivoBooking.init({ channel: channel, autoOpen: true });
+        OctivoBooking.init(withHost({ channel: channel, autoOpen: true }));
         log('1', 'init() called — bubble shown, panel opened.');
         break;
 
       case '2':
-        OctivoBooking.init({
+        OctivoBooking.init(withHost({
           channel: channel,
           name: 'Nguyễn Văn A',
           phone: '0901234567',
           autoOpen: true,
-        });
+        }));
         log('2', 'init() called with name/phone — guest-info gate skipped if this is a new session.');
         break;
 
       case '3':
-        OctivoBooking.init({ channel: channel, showBubble: false });
+        OctivoBooking.init(withHost({ channel: channel, showBubble: false }));
         log('3', 'init() called with showBubble:false — no floating bubble should appear. Opening popup from a separate trigger…');
         setTimeout(function () {
           OctivoBooking.open();
@@ -492,13 +504,13 @@
         break;
 
       case '4':
-        OctivoBooking.init({
+        OctivoBooking.init(withHost({
           channel: channel,
           autoOpen: true,
           onClose: function () {
             log('4', 'onClose callback fired at ' + new Date().toLocaleTimeString() + '.');
           },
-        });
+        }));
         log('4', 'init() called — close the popup to trigger the callback.');
         break;
 
@@ -506,21 +518,21 @@
         window.addEventListener('octivobooking:close', function (e) {
           log('5', 'octivobooking:close event received for channel ' + e.detail.channel + '.');
         });
-        OctivoBooking.init({ channel: channel, autoOpen: true });
+        OctivoBooking.init(withHost({ channel: channel, autoOpen: true }));
         log('5', 'init() called and listener attached — close the popup to trigger the event.');
         break;
 
       case '6':
-        OctivoBooking.init({ channel: channel, name: 'Jane', phone: '0901111111', autoOpen: true });
+        OctivoBooking.init(withHost({ channel: channel, name: 'Jane', phone: '0901111111', autoOpen: true }));
         log('6', 'Session started as Jane. Re-initing as John…');
         setTimeout(function () {
-          OctivoBooking.init({ channel: channel, name: 'John', phone: '0902222222', autoOpen: true });
+          OctivoBooking.init(withHost({ channel: channel, name: 'John', phone: '0902222222', autoOpen: true }));
           log('6', 'init() called again as John — the existing session (Jane) is reused as-is, reservation list shown.');
         }, 800);
         break;
 
       case '7':
-        OctivoBooking.init({ channel: channel, autoOpen: true });
+        OctivoBooking.init(withHost({ channel: channel, autoOpen: true }));
         log('7', 'init() called — resize the window or open on a phone to compare the centered-modal (desktop) vs full-screen (mobile) layouts.');
         break;
     }

@@ -2,9 +2,7 @@
  * Octivo Booking — embeddable booking widget for any `type=website`
  * channel. Self-contained: injects its own CSS + DOM into the host page,
  * so it can be dropped into any third-party site via a single <script>
- * tag. Independent from assets/plugins/octivo-chat/ and the server-rendered
- * "booking" theme (application/views/themes/booking/index.php) — no shared
- * code, so this widget can evolve without risking those flows.
+ * tag served from the Octivo CDN.
  *
  * Flow: choose branch (skipped if the org has only one) -> choose service
  * -> choose staff (optional) -> choose date/time -> confirm, plus a list of
@@ -14,7 +12,7 @@
  * toggle in the header; on mobile, always full-screen (no toggle).
  *
  * Usage:
- *   <script src=".../octivo-booking.js" data-channel="@abc123" async></script>
+ *   <script src="https://cdn.octivo.example/octivo-booking.js" data-channel="@abc123" async></script>
  *   // optional, any time after the script tag:
  *   window.OctivoBooking.init({
  *     name: 'Jane', phone: '0901234567',
@@ -23,10 +21,15 @@
  *   });
  *   document.querySelector('#my-booking-button').addEventListener('click', OctivoBooking.open);
  *   window.addEventListener('octivobooking:close', function (e) { ... });
+ *
+ * API host: defaults to https://octivo.shplinks.com. Override via
+ * data-host="https://your-crm.example.com" on the <script> tag, or
+ * init({ host: 'https://your-crm.example.com' }).
  */
 (function (global, document) {
   'use strict';
 
+  var DEFAULT_API_HOST = 'https://octivo.shplinks.com';
   var CSS_HREF = currentScriptBase() + 'octivo-booking.css';
   var API_BASE = currentScriptOrigin();
   var LS_PREFIX = 'octivo_booking_';
@@ -70,7 +73,7 @@
 
   function currentScriptBase() {
     var src = document.currentScript ? document.currentScript.src : '';
-    if (!src) return '/assets/plugins/octivo-booking/';
+    if (!src) return '';
     return src.slice(0, src.lastIndexOf('/') + 1);
   }
 
@@ -82,6 +85,17 @@
     } catch (e) {
       return '';
     }
+  }
+
+  /** data-host="https://your-crm.example.com" on the <script> tag, for sites that only use the auto-init (no manual init() call). */
+  function readHostDataAttr() {
+    var el = document.currentScript || document.querySelector('script[data-channel]');
+    return el ? (el.getAttribute('data-host') || '') : '';
+  }
+
+  function resolveApiBase(options) {
+    var host = (options && options.host) || readHostDataAttr() || API_BASE || DEFAULT_API_HOST;
+    return String(host).replace(/\/+$/, '');
   }
 
   function $(sel, root) {
@@ -929,6 +943,7 @@
       return Promise.reject(new Error('OctivoBooking.init: missing channel'));
     }
     state.channelSourceId = channel;
+    API_BASE = resolveApiBase(options);
 
     injectCss();
     buildDom();

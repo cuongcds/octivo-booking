@@ -1,6 +1,6 @@
 {
   "name": "octivo-booking",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Embeddable booking widget for Octivo CRM website channels",
   "main": "dist/octivo-booking.min.js",
   "style": "dist/octivo-booking.min.css",
